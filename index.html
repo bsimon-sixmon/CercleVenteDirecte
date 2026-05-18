@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cercle de la Vente Directe — France 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red: #C8332A;
+      --dark: #0f0f0f;
+      --cream: #F5F0E8;
+      --warm-white: #FDFBF7;
+      --muted: #6B6560;
+      --border: #D9D3C8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--warm-white);
+      color: var(--dark);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 40%, rgba(200,51,42,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 10% 80%, rgba(200,51,42,0.04) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    /* Large decorative year */
+    .hero-bg-year {
+      position: absolute;
+      bottom: -40px;
+      right: -20px;
+      font-family: 'Libre Baskerville', serif;
+      font-size: clamp(160px, 22vw, 320px);
+      font-weight: 700;
+      color: rgba(200,51,42,0.05);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -0.04em;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 60px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      z-index: 10;
+      opacity: 0;
+      animation: fadeDown 0.6s ease 0.1s forwards;
+    }
+
+    .nav-logos {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .badge {
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .badge-red { background: var(--red); color: white; }
+    .badge-dark { background: var(--dark); color: white; }
+    .badge-outline { border: 1.5px solid var(--dark); color: var(--dark); }
+
+    .nav-sep { color: var(--border); font-size: 18px; }
+
+    .nav-cta {
+      background: var(--red);
+      color: white;
+      text-decoration: none;
+      padding: 10px 24px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,51,42,0.3); }
+
+    /* ─── HERO CONTENT ─── */
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 60px 40px;
+      position: relative;
+      z-index: 5;
+      max-width: 900px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.3s forwards;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--red);
+    }
+
+    h1 {
+      font-family: 'Libre Baskerville', serif;
+      font-size: clamp(52px, 7vw, 96px);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      font-weight: 700;
+      margin-bottom: 12px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.45s forwards;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--red);
+    }
+
+    .hero-subtitle {
+      font-size: clamp(15px, 2vw, 18px);
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.6;
+      max-width: 500px;
+      margin-top: 20px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.6s forwards;
+    }
+
+    /* ─── HERO META STRIP ─── */
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 5;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.75s forwards;
+    }
+
+    .meta-item {
+      padding: 10px 24px 10px 0;
+      border-right: 1px solid var(--border);
+      margin-left: 60px;
+    }
+
+    .meta-item:last-child { border-right: none; }
+
+    .meta-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .meta-value {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    /* ─── SECTION SHARED ─── */
+    section { padding: 100px 60px; }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      max-width: 60px;
+    }
+
+    h2 {
+      font-family: 'Libre Baskerville', serif;
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    /* ─── MISSION ─── */
+    .mission {
+      background: var(--dark);
+      color: white;
+      padding: 80px 60px;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .mission .section-label { color: rgba(255,255,255,0.4); }
+    .mission .section-label::after { background: rgba(255,255,255,0.15); }
+    .mission h2 { color: white; font-size: clamp(28px, 3vw, 40px); }
+
+    .mission-text {
+      font-size: 20px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.75);
+      font-weight: 300;
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+      border-left: 3px solid var(--red);
+      padding-left: 32px;
+    }
+
+    /* ─── PROGRAMME ─── */
+    .programme { background: var(--cream); }
+
+    .programme-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 2px;
+      margin-top: 20px;
+    }
+
+    .prog-item {
+      background: white;
+      padding: 32px;
+      border: 1px solid var(--border);
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: default;
+    }
+
+    .prog-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+      z-index: 1;
+    }
+
+    .prog-number {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--red);
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+
+    .prog-title {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.35;
+      margin-bottom: 12px;
+      color: var(--dark);
+    }
+
+    .prog-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .prog-speaker {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .prog-speaker-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--red);
+      flex-shrink: 0;
+    }
+
+    /* Table ronde */
+    .prog-table-ronde {
+      background: var(--dark);
+      color: white;
+      grid-column: 1 / -1;
+    }
+    .prog-table-ronde .prog-title { color: white; font-size: 18px; }
+    .prog-table-ronde .prog-desc { color: rgba(255,255,255,0.6); }
+    .prog-table-ronde .prog-speaker { color: rgba(255,255,255,0.5); }
+
+    /* ─── SPEAKERS ─── */
+    .speakers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 24px;
+      margin-top: 20px;
+    }
+
+    .speaker-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .speaker-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Libre Baskerville', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .av-red { background: var(--red); }
+    .av-dark { background: var(--dark); }
+    .av-warm { background: #8B6F4E; }
+    .av-green { background: #3A7D5A; }
+    .av-blue { background: #3A5F8A; }
+    .av-purple { background: #6B4E8A; }
+    .av-teal { background: #2D7A6B; }
+    .av-olive { background: #6B7A2D; }
+
+    .speaker-name {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .speaker-org {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ─── ORGANISATEURS ─── */
+    .orga {
+      background: var(--cream);
+      border-top: 1px solid var(--border);
+    }
+
+    .orga-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      margin-top: 20px;
+    }
+
+    .orga-card {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .orga-info {}
+    .orga-name { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+    .orga-company { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+    .orga-role { font-size: 12px; color: var(--red); font-style: italic; font-weight: 500; }
+
+    /* ─── INSCRIPTION ─── */
+    .inscription {
+      background: var(--dark);
+      color: white;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .inscription::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 80% at 50% 50%, rgba(200,51,42,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .inscription h2 { color: white; max-width: 600px; position: relative; z-index: 1; }
+
+    .insc-details {
+      display: flex;
+      gap: 48px;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .insc-item { text-align: center; }
+    .insc-val {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: white;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .insc-lbl {
+      font-size: 11px;
+      color: rgba(255,255,255,0.45);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .insc-btn {
+      display: inline-block;
+      background: var(--red);
+      color: white;
+      text-decoration: none;
+      padding: 18px 48px;
+      border-radius: 100px;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      z-index: 1;
+    }
+    .insc-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(200,51,42,0.5); }
+
+    .insc-note {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      position: relative;
+      z-index: 1;
+    }
+
+    .dinner-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.65);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 28px 60px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      .nav-cta { display: none; }
+      .hero-content { padding: 40px 24px 32px; }
+      .hero-meta { grid-template-columns: 1fr 1fr; }
+      .meta-item { margin-left: 24px; padding: 20px 24px 20px 0; }
+      section { padding: 64px 24px; }
+      .mission { grid-template-columns: 1fr; gap: 32px; padding: 64px 24px; }
+      .programme-grid { grid-template-columns: 1fr; }
+      .orga-grid { grid-template-columns: 1fr; }
+      .speakers-grid { grid-template-columns: repeat(2, 1fr); }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
+      .insc-details { flex-wrap: wrap; gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header>
+    <nav>
+      <div class="nav-logos">
+        <span class="badge badge-red">SellingAtHome</span>
+        <span class="nav-sep">×</span>
+        <span class="badge badge-dark">ds Conseil</span>
+        <span class="nav-sep">×</span>
+        <span class="badge badge-outline">Maïco Solutions</span>
+      </div>
+      <a href="#inscription" class="nav-cta">S'inscrire →</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg-year">2026</div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">France 2026</div>
+      <h1>Cercle de la<br>Vente<br><em>Directe.</em></h1>
+      <p class="hero-subtitle">Le premier forum à destination des décideurs de la vente directe.</p>
+    </div>
+
+    <div class="hero-meta">
+      <div class="meta-item">
+        <div class="meta-label">Date</div>
+        <div class="meta-value">Jeudi 1er<br>oct. 2026</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Lieu</div>
+        <div class="meta-value">Gare de Lyon<br>Paris</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Horaires</div>
+        <div class="meta-value">09h00 –<br>18h00</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Places</div>
+        <div class="meta-value">30 pers.<br>sur invitation</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Contribution</div>
+        <div class="meta-value">250 – 350 €<br>/ pers.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MISSION -->
+  <div class="mission reveal">
+    <div>
+      <div class="section-label">Notre mission</div>
+      <h2>Pourquoi ce forum ?</h2>
+    </div>
+    <p class="mission-text">
+      Nous souhaitons offrir à nos clients, acteurs de la vente directe, un cadre structuré d'apprentissage et d'échanges autour des enjeux clés et des évolutions du secteur. Une journée pour réfléchir, partager et faire grandir ses projets.
+    </p>
+  </div>
+
+  <!-- PROGRAMME -->
+  <section class="programme">
+    <div class="section-label">Programme</div>
+    <h2>11 sessions &amp; une table ronde</h2>
+
+    <div class="programme-grid">
+
+      <div class="prog-item reveal">
+        <div class="prog-number">01</div>
+        <div class="prog-title">La Vente Directe aujourd'hui : où en est réellement le marché ?</div>
+        <div class="prog-desc">Panorama de la Vente Directe en France : chiffres clés, tendances terrain, évolutions des réseaux et nouveaux enjeux du secteur.</div>
+        <div class="prog-speaker"><span class="prog-speaker-dot"></span>Frédéric Billon · FVD France</div>
+      </div>
+
+      <div class="prog-item reveal">
+        <div class="prog-number">02</div>
+        <div class="prog-title">Les modèles qui performent aujourd'hui</div>
+        <div class="prog-desc">Quels sont les leviers des entreprises qui continuent de développer leur réseau et leur chiffre d'affaires ? Décryptage des modèles qui fonctionnent.</div>
+        <div class="prog-speaker"><span class="prog-speaker-dot"></span>Dirk Schiffner · ds Conseil</div>
+      </div>
+
+      <div class="prog-item reveal">
+        <div class="prog-number">03</div>
+        <div class="prog-title">Le produit : au cœur de l'expérience client</div>
+        <div class="prog-desc">Les univers produits qui recrutent, fidélisent et créent de l'engagement. Quelles tendances émergent ? Quels marchés s'essoufflent ?</div>
+        <div class="prog-speaker"><span class="prog-speaker-dot"></span>Alexander Coelho Hinklhofer · Amare Global</div>
+      </div>
+
+      <div class="prog-item reveal">
+        <div class="prog-number">04</div>
+        <div class="prog-title">Plan de rémunération : moteur ou frein du développement ?</div>
+        <div class="prog-desc">Le plan de rémunération comme levier d'animation, de fidélisation et de croissance du réseau. Les bonnes questions pour évaluer l'efficacité de son modèle.</div>
+        <div class="prog-speaker"><span class="prog-speaker-dot"></span>Stefan Richter · Mesnja</div>
+      </div>
+
+      <div class="prog-item reveal">
+        <div class="prog-number">05</div>
+        <div class="prog-title">Mission, vision, valeurs : créer une culture qui embarque</div>
+        <div class="prog-desc">Comment construire une entreprise et un réseau alignés autour d'une vision forte ? Retours d'expériences et exemples concrets d'entreprises inspirantes.</div>
+        <div class="prog-speaker"><span class="prog-speaker-dot"></span>Dirk Schiffner · ds Conseil</div>
+      </div>
+
+      <div class="prog-item reveal">
+        <div class="prog-number">06</div>
+        <div class="prog-title">L'ADN de la Vente Directe</div>
+        <div class="prog-desc">Relation humaine, proximité terrain, communauté, transmission, storytelling… Les fondamentaux qui font encore aujourd'hui la force de la Vente Directe.</div>
+        <div class="prog-speaker"><span class="prog-speaker-dot"></span>Myriam Paratte · Dirk Schiffner</div>
+      </div>
+
+      <div class="prog-item reveal">
+        <div class="prog-number">07</div>
+        <div class="prog-title">Parrainage &amp; recrutement : relancer la dynamique réseau</div>
+        <div class="prog-desc">Comment recréer de l'élan lorsque le recrutement ralentit ? Méthodes, lecture terrain et premières pistes concrètes pour redynamiser son réseau.</div>
+        <div class="prog-speaker"><span class="prog-speaker-dot"></span>Dirk Schiffner · Myriam Paratte</div>
+      </div>
+
+      <div class="prog-item reveal">
+        <div class="prog-number">08</div>
+        <div class="prog-title">Le grand retour de la réunion à domicile</div>
+        <div class="prog-desc">Pourquoi la Réunion à Domicile retrouve aujourd'hui tout son potentiel. Comment réenchanter l'expérience et la remettre au cœur du développement.</div>
+        <div class="prog-speaker"><span class="prog-speaker-dot"></span>Dirk Schiffner · Myriam Paratte</div>
+      </div>
+
+      <div class="prog-item reveal">
+        <div class="prog-number">09</div>
+        <div class="prog-title">Développement international : nouvelles opportunités de croissance</div>
+        <div class="prog-desc">Europe, Afrique et nouveaux marchés : visions, retours terrain et opportunités concrètes de développement.</div>
+        <div class="prog-speaker"><span class="prog-speaker-dot"></span>Éric Clerc · Armand Friess</div>
+      </div>
+
+      <div class="prog-item reveal">
+        <div class="prog-number">10</div>
+        <div class="prog-title">Événements &amp; conventions : créer l'énergie collective</div>
+        <div class="prog-desc">Comment transformer un événement en véritable levier d'engagement, de conviction et de passage à l'action.</div>
+        <div class="prog-speaker"><span class="prog-speaker-dot"></span>Arnaud Iweins · Secret de Miel</div>
+      </div>
+
+      <div class="prog-item reveal">
+        <div class="prog-number">11</div>
+        <div class="prog-title">Digital &amp; outils : les innovations qui transforment la Vente Directe</div>
+        <div class="prog-desc">Plateformes, outils digitaux, automatisation, expérience conseiller et innovations utiles au terrain.</div>
+        <div class="prog-speaker"><span class="prog-speaker-dot"></span>Benjamin Simon · SellingAtHome</div>
+      </div>
+
+      <div class="prog-item prog-table-ronde reveal">
+        <div class="prog-number" style="color: rgba(255,255,255,0.4)">— TABLE RONDE</div>
+        <div class="prog-title">Échanges &amp; questions libres</div>
+        <div class="prog-desc">Un temps d'échange privilégié avec les intervenants pour approfondir les sujets, partager les expériences et repartir avec des idées concrètes.</div>
+        <div class="prog-speaker"><span class="prog-speaker-dot"></span>Animée par Myriam Paratte · avec tous les intervenants</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INTERVENANTS -->
+  <section id="intervenants">
+    <div class="section-label">Intervenants</div>
+    <h2>Ceux qui prennent la parole</h2>
+
+    <div class="speakers-grid">
+      <div class="speaker-card reveal">
+        <div class="speaker-avatar av-dark">DS</div>
+        <div>
+          <div class="speaker-name">Dirk Schiffner</div>
+          <div class="speaker-org">ds Conseil</div>
+        </div>
+      </div>
+      <div class="speaker-card reveal">
+        <div class="speaker-avatar av-blue">FB</div>
+        <div>
+          <div class="speaker-name">Frédéric Billon</div>
+          <div class="speaker-org">FVD France</div>
+        </div>
+      </div>
+      <div class="speaker-card reveal">
+        <div class="speaker-avatar av-warm">SR</div>
+        <div>
+          <div class="speaker-name">Stefan Richter</div>
+          <div class="speaker-org">Mesnja</div>
+        </div>
+      </div>
+      <div class="speaker-card reveal">
+        <div class="speaker-avatar av-red">AC</div>
+        <div>
+          <div class="speaker-name">A. Coelho Hinklhofer</div>
+          <div class="speaker-org">Amare Global</div>
+        </div>
+      </div>
+      <div class="speaker-card reveal">
+        <div class="speaker-avatar av-purple">MP</div>
+        <div>
+          <div class="speaker-name">Myriam Paratte</div>
+          <div class="speaker-org">Maïco Solutions</div>
+        </div>
+      </div>
+      <div class="speaker-card reveal">
+        <div class="speaker-avatar av-green">EC</div>
+        <div>
+          <div class="speaker-name">Éric Clerc</div>
+          <div class="speaker-org">Greenway Global</div>
+        </div>
+      </div>
+      <div class="speaker-card reveal">
+        <div class="speaker-avatar av-olive">AF</div>
+        <div>
+          <div class="speaker-name">Armand Friess</div>
+          <div class="speaker-org">AfriExpert</div>
+        </div>
+      </div>
+      <div class="speaker-card reveal">
+        <div class="speaker-avatar av-teal">AI</div>
+        <div>
+          <div class="speaker-name">Arnaud Iweins</div>
+          <div class="speaker-org">Secret de Miel</div>
+        </div>
+      </div>
+      <div class="speaker-card reveal">
+        <div class="speaker-avatar av-dark">BS</div>
+        <div>
+          <div class="speaker-name">Benjamin Simon</div>
+          <div class="speaker-org">SellingAtHome</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORGANISATEURS -->
+  <section class="orga">
+    <div class="section-label">Organisé &amp; animé par</div>
+    <h2>L'équipe organisatrice</h2>
+    <div class="orga-grid reveal">
+      <div class="orga-card">
+        <div class="speaker-avatar av-dark" style="width:56px;height:56px;font-size:14px;flex-shrink:0">DS</div>
+        <div class="orga-info">
+          <div class="orga-name">Dirk Schiffner</div>
+          <div class="orga-company">ds Conseil</div>
+          <div class="orga-role">Contenu &amp; logistique</div>
+        </div>
+      </div>
+      <div class="orga-card">
+        <div class="speaker-avatar av-purple" style="width:56px;height:56px;font-size:14px;flex-shrink:0">MP</div>
+        <div class="orga-info">
+          <div class="orga-name">Myriam Paratte</div>
+          <div class="orga-company">Maïco Solutions</div>
+          <div class="orga-role">Programme &amp; animation</div>
+        </div>
+      </div>
+      <div class="orga-card">
+        <div class="speaker-avatar av-dark" style="width:56px;height:56px;font-size:14px;flex-shrink:0">BS</div>
+        <div class="orga-info">
+          <div class="orga-name">Benjamin Simon</div>
+          <div class="orga-company">SellingAtHome</div>
+          <div class="orga-role">Sponsoring &amp; communication</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSCRIPTION -->
+  <section class="inscription" id="inscription">
+    <h2>Places limitées — 30 participants sur invitation</h2>
+
+    <div class="insc-details">
+      <div class="insc-item">
+        <span class="insc-val">250 – 350 €</span>
+        <span class="insc-lbl">Contribution / pers.</span>
+      </div>
+      <div class="insc-item">
+        <span class="insc-val">30 places</span>
+        <span class="insc-lbl">Sur invitation</span>
+      </div>
+      <div class="insc-item">
+        <span class="insc-val">1er oct. 2026</span>
+        <span class="insc-lbl">Jeudi · Paris</span>
+      </div>
+    </div>
+
+    <a href="https://forum-vdi-2026.sellingathome.com" class="insc-btn">Demander son invitation →</a>
+
+    <div class="dinner-note">
+      🍽️ Dîner optionnel · Restaurant sur inscription · +50 € / pers. · à partir de 18h30
+    </div>
+
+    <p class="insc-note">Contactez Benjamin Simon · forum-vdi-2026.sellingathome.com</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>© 2026 SellingAtHome · ds Conseil · Maïco Solutions</div>
+    <div>Cercle de la Vente Directe France · Gare de Lyon, Paris</div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, 60 * (entry.target.dataset.delay || 0));
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach((el, i) => {
+      el.dataset.delay = i % 4;
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
