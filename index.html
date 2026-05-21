@@ -153,6 +153,22 @@
 
   .cta-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
 
+  .cta-btn--outline {
+    background: transparent;
+    color: var(--gold);
+    border: 1.5px solid var(--gold);
+  }
+
+  .cta-btn--outline:hover { background: rgba(30,58,95,0.08); }
+
+  .hero-cta-group {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 0;
+  }
+
   .scroll-hint {
     position: absolute;
     bottom: 2.5rem;
@@ -836,7 +852,10 @@
     </div>
   </div>
 
-  <a href="#programme" class="cta-btn">Voir le programme</a>
+  <div class="hero-cta-group">
+    <a href="mailto:contact@cercle-vente-directe.fr" class="cta-btn">Demander une invitation</a>
+    <a href="#programme" class="cta-btn cta-btn--outline">Voir le programme</a>
+  </div>
   <div class="scroll-hint">Découvrir</div>
 </section>
 
