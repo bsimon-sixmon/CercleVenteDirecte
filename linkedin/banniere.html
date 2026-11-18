@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Libre+Baskerville:wght@400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1128px; height: 191px; overflow: hidden; }
+  body {
+    position: relative;
+    background:
+      radial-gradient(ellipse 60% 120% at 62% 40%, rgba(30,58,95,0.08) 0%, transparent 70%),
+      #F7F3ED;
+    font-family: 'Libre Baskerville', Georgia, serif;
+    color: #2C2416;
+  }
+  body::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(30,58,95,0.06) 39px, rgba(30,58,95,0.06) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(30,58,95,0.06) 39px, rgba(30,58,95,0.06) 40px);
+  }
+  body::after {
+    content: '';
+    position: absolute; left: 0; right: 0; bottom: 0; height: 4px;
+    background: #1E3A5F;
+  }
+  .wrap {
+    position: absolute; inset: 0 40px 4px 250px; /* marge gauche : logo LinkedIn */
+    display: flex; align-items: center; justify-content: center; gap: 44px;
+  }
+  .title {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 58px; font-weight: 400; line-height: 1; letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .title em { font-style: italic; color: #1E3A5F; }
+  .subtitle {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-style: italic; font-size: 19px; color: #8A7E6E; margin-top: 10px; letter-spacing: 0.02em;
+  }
+  .sep { width: 1px; height: 96px; background: rgba(30,58,95,0.3); }
+  .edition { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+  .tag {
+    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #1E3A5F;
+    border: 1px solid rgba(30,58,95,0.35); padding: 5px 14px; border-radius: 2px;
+  }
+  .date { font-family: 'EB Garamond', Georgia, serif; font-size: 24px; line-height: 1.15; }
+  .city { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #8A7E6E; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div>
+      <div class="title">Cercle <em>Vente Directe</em></div>
+      <div class="subtitle">Une journée entre dirigeants, pour les dirigeants</div>
+    </div>
+    <div class="sep"></div>
+    <div class="edition">
+      <span class="tag">Édition 2027</span>
+      <span class="date">Jeudi 30 septembre 2027</span>
+      <span class="city">Paris &nbsp;·&nbsp; Sur invitation</span>
+    </div>
+  </div>
+</body>
+</html>
